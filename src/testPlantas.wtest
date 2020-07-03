@@ -1,4 +1,5 @@
 import plantas.*
+import parcelas.*
 
 describe "test plantas" {
 	const menta1 = new Menta(altura = 1, anioDeObtencion = 2017)
@@ -11,11 +12,20 @@ describe "test plantas" {
 	const sojaTransgenica = new SojaTransgenica(altura = 0.80, anioDeObtencion = 2009)
 	const peperina = new Peperina(altura = 1, anioDeObtencion = 2017)
 	
+	const parcela = new Parcela(ancho = 10, largo = 1, horasDeSolRecibidas = 10)
+	
+	fixture{
+		parcela.plantarPlanta(soja1)
+		parcela.plantarPlanta(menta1)
+		
+	}
+	
 	test "Menta"{
 		assert.equals(2,menta1.espacioOcupado())
 		assert.that(menta1.daNuevasSemillas())
 		assert.equals(1.3,menta2.espacioOcupado())
 		assert.notThat(menta2.daNuevasSemillas())
+		
 	}
 	
 	test "Soja"{
@@ -40,8 +50,15 @@ describe "test plantas" {
 	test "Variedades"{
 		assert.notThat(sojaTransgenica.daNuevasSemillas())
 		assert.equals(4,peperina.espacioOcupado())
-		
-		
+	}
+	
+	test "parcela ideal"{
+		assert.that(menta1.parcelaIdeal(parcela))
+		assert.that(quinoa1.parcelaIdeal(parcela))
+		assert.notThat(soja1.parcelaIdeal(parcela))
+		assert.notThat(sojaTransgenica.parcelaIdeal(parcela))
+		assert.that(peperina.parcelaIdeal(parcela))
+
 	}
 	
 	

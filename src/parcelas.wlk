@@ -7,8 +7,8 @@ class Parcela {
 	var plantas = []
 	
 	method plantarPlanta(planta) {
-		if(plantas.size() < self.cantidadDePlantasToleradas() 
-			and (self.horasDeSolRecibidas() - planta.horasDeSolToleradas()) >= 2) 
+		if(self.cantidadDePlantas() < self.cantidadDePlantasToleradas() 
+			or (self.horasDeSolRecibidas() - planta.horasDeSolToleradas()) >= 2) 
 		{plantas.add(planta)}
 		else {self.error("supera la cantidad permitida o la parcela recibe mas horas de sol")}
 	}
@@ -22,4 +22,35 @@ class Parcela {
 	}
 	
 	method tieneComplicaciones() {return plantas.any({p => p.horasDeSolToleradas() < self.horasDeSolRecibidas()})}
+	
+	method alturaMaxima() {return plantas.max({p=>p.altura()}).altura()}
+	
+	method cantidadDePlantas() {return plantas.size()}
+	
+	method seAsociabien(unaPlanta)
+	
+}
+
+class ParcelaEcologica inherits Parcela {
+	
+	override method seAsociabien(unaPlanta) {return not self.tieneComplicaciones() and
+		unaPlanta.parcelaIdeal(self)
+	}
+}
+
+class ParcelaIndustrial inherits Parcela {
+	override method seAsociabien(unaPlanta) {return self.cantidadDePlantas() and unaPlanta.esFuerte()}
+}
+
+object inta {
+	var parcelas = []
+	
+	method agregarParcela(parcela) {parcelas.addAll(parcela)}
+	method parcelas() {return parcelas}
+	
+	method promedioPlantas() {
+		return parcelas.sum({p => p.cantidadDePlantas()}) / parcelas.size()
+	}
+	
+	method masAutosustentable() {}
 }

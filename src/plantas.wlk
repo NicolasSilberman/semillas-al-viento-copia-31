@@ -1,3 +1,5 @@
+import parcelas.*
+
 class Planta {
 	var property anioDeObtencion
 	var property altura
@@ -9,12 +11,15 @@ class Planta {
 	method daNuevasSemillas() {return self.esFuerte()}
 	
 	method espacioOcupado()
+	
+	method parcelaIdeal(unaParcela)
 }
 
 class Menta inherits Planta {
 	
 	override method espacioOcupado() {return self.altura() + 1}
 	override method daNuevasSemillas() {return super() or self.espacioOcupado() > 1.5}
+	override method parcelaIdeal(unaParcela) {return unaParcela.superficie() > 6}
 }
 
 class Soja inherits Planta {
@@ -30,7 +35,8 @@ class Soja inherits Planta {
 	override method espacioOcupado() {return self.altura() / 2}
 	override method daNuevasSemillas() {return super() or self.anioDeObtencion() > 2007
 		and self.altura().between(0.75,0.9)
-	}	
+	}
+	override method parcelaIdeal(unaParcela) {return self.horasDeSolToleradas() == unaParcela.horasDeSolRecibidas()}	
 }
 
 class Quinoa inherits Planta {
@@ -42,11 +48,13 @@ class Quinoa inherits Planta {
 	}
 	
 	override method daNuevasSemillas() {return super() or self.anioDeObtencion().between(2001,2008)}
+	override method parcelaIdeal(unaParcela) {return unaParcela.alturaMaxima() <= 1.5 }
 }
 
 class SojaTransgenica inherits Soja{
 	
 	override method daNuevasSemillas() {return false}
+	override method parcelaIdeal(unaParcela) {return unaParcela.cantidadDePlantasToleradas() == 1}
 }
 
 class Peperina inherits Menta {
