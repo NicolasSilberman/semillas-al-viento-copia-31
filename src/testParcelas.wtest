@@ -35,6 +35,7 @@ describe "test de parcelas"{
 	test "asociacion parcela y planta"{
 		assert.notThat(parcela1.seAsociaBien(soja7))
 		assert.that(parcela2.seAsociaBien(soja7))
+		assert.equals(0,parcela1.porcentajeBienAsociadas())
 		assert.equals(100,parcela2.porcentajeBienAsociadas())	
 	}
 	

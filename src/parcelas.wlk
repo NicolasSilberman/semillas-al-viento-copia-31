@@ -58,6 +58,6 @@ object inta {
 	
 	method masAutosustentable() {
 		var superanLaCantidad = parcelas.filter({p=> p.cantidadDePlantas() > 4})
-		return superanLaCantidad.max()
+		return superanLaCantidad.max({p=>p.porcentajeBienAsociadas()})
 	}
 }
