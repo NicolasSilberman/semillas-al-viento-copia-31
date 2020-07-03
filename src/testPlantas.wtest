@@ -12,7 +12,7 @@ describe "test plantas" {
 	const sojaTransgenica = new SojaTransgenica(altura = 0.80, anioDeObtencion = 2009)
 	const peperina = new Peperina(altura = 1, anioDeObtencion = 2017)
 	
-	const parcela = new Parcela(ancho = 10, largo = 1, horasDeSolRecibidas = 10)
+	const parcela = new ParcelaEcologica(ancho = 10, largo = 1, horasDeSolRecibidas = 10)
 	
 	fixture{
 		parcela.plantarPlanta(soja1)

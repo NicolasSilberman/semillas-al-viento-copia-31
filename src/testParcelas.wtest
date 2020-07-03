@@ -7,22 +7,42 @@ describe "test de parcelas"{
 	const soja3 = new Soja(altura = 2, anioDeObtencion = 2009)
 	const soja4 = new Soja(altura = 2, anioDeObtencion = 2009)
 	const soja5 = new Soja(altura = 2, anioDeObtencion = 2009)
+	const soja6 = new Soja(altura = 2, anioDeObtencion = 2009)
+	const soja7 = new Soja(altura = 2, anioDeObtencion = 2009)
+	const soja8 = new Soja(altura = 2, anioDeObtencion = 2009)
 	
+	const parcela1 = new ParcelaEcologica(ancho = 10, largo = 1, horasDeSolRecibidas = 10)
+	const parcela2 = new ParcelaIndustrial(ancho = 10, largo = 1, horasDeSolRecibidas = 10)
 	
-	const parcela = new Parcela(ancho = 10, largo = 1, horasDeSolRecibidas = 10)
 	
 	fixture{
-		parcela.plantarPlanta(soja1)
-		parcela.plantarPlanta(soja2)
-		parcela.plantarPlanta(soja3)
-		parcela.plantarPlanta(soja4)
-		parcela.plantarPlanta(soja5)
+		parcela1.plantarPlanta(soja1)
+		parcela1.plantarPlanta(soja2)
+		parcela1.plantarPlanta(soja3)
+		parcela1.plantarPlanta(soja4)
+		parcela1.plantarPlanta(soja5)
+		parcela2.plantarPlanta(soja6)
+		//parcela1.plantarPlanta(soja8)// haciendo esta operacion tira el mensaje de error solicitado
+		inta.agregarParcela([parcela1,parcela2])	
 	}
-	test "parcela 1"{
-		assert.equals(10,parcela.superficie())
-		assert.equals(5,parcela.cantidadDePlantasToleradas())
-		assert.notThat(parcela.tieneComplicaciones())
-		assert.equals(5,parcela.cantidadDePlantas())
+	test "parcela"{
+		assert.equals(10,parcela1.superficie())
+		assert.equals(5,parcela1.cantidadDePlantasToleradas())
+		assert.notThat(parcela1.tieneComplicaciones())
+		assert.equals(5,parcela1.cantidadDePlantas())
 	}
+	
+	test "asociacion parcela y planta"{
+		assert.notThat(parcela1.seAsociaBien(soja7))
+		assert.that(parcela2.seAsociaBien(soja7))
+		assert.equals(100,parcela2.porcentajeBienAsociadas())	
+	}
+	
+	test "inta"{
+		assert.equals(3,inta.promedioPlantas())
+		assert.equals(parcela1,inta.masAutosustentable())	
+	}
+	
+	
 	
 }

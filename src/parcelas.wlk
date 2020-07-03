@@ -27,19 +27,23 @@ class Parcela {
 	
 	method cantidadDePlantas() {return plantas.size()}
 	
-	method seAsociabien(unaPlanta)
+	method seAsociaBien(unaPlanta)
+	
+	method porcentajeBienAsociadas() {
+		return (plantas.count({p => self.seAsociaBien(p)}) * 100) / self.cantidadDePlantas()
+	}
 	
 }
 
 class ParcelaEcologica inherits Parcela {
 	
-	override method seAsociabien(unaPlanta) {return not self.tieneComplicaciones() and
+	override method seAsociaBien(unaPlanta) {return not self.tieneComplicaciones() and
 		unaPlanta.parcelaIdeal(self)
 	}
 }
 
 class ParcelaIndustrial inherits Parcela {
-	override method seAsociabien(unaPlanta) {return self.cantidadDePlantas() and unaPlanta.esFuerte()}
+	override method seAsociaBien(unaPlanta) {return self.cantidadDePlantas() <= 2 and unaPlanta.esFuerte()}
 }
 
 object inta {
@@ -52,5 +56,8 @@ object inta {
 		return parcelas.sum({p => p.cantidadDePlantas()}) / parcelas.size()
 	}
 	
-	method masAutosustentable() {}
+	method masAutosustentable() {
+		var superanLaCantidad = parcelas.filter({p=> p.cantidadDePlantas() > 4})
+		return superanLaCantidad.max()
+	}
 }
